@@ -15,12 +15,12 @@
 <section id="recipes" class="panel"><div class="card"><h2>Rezepte</h2><p class="hint">Ein Rezept speichert die vollständige Zutatenliste mit Mengen. Du kannst es später wieder öffnen und erneut kochen.</p><div id="recipeList"></div></div><div class="card"><h3>Gespeicherte Mahlzeit als Rezept übernehmen</h3><p class="hint">Wähle eine Mahlzeit aus deiner bestehenden Mahlzeitenliste. Zutaten und Mengen werden direkt als neues Rezept übernommen.</p><div class="grid"><div><label for="recipeFromMeal">Gespeicherte Mahlzeit</label><select id="recipeFromMeal"></select></div><div style="display:flex;align-items:end"><button class="primary" style="width:100%" onclick="saveSelectedMealAsRecipe()">Als Rezept speichern</button></div></div></div><div class="card"><h3>Neues Rezept aus aktueller Mahlzeit</h3><p class="hint">Du kannst weiterhin auch den aktuellen Zutaten-Entwurf als Rezept speichern.</p><button class="secondary" onclick="saveDraftAsRecipe()">Aktuelle Zutaten als Rezept speichern</button></div></section>
 <section id="prep" class="panel"><div class="card"><h2>Meal Prep – gekochte Gerichte</h2><p class="hint">Wähle ein gespeichertes Rezept, trage das tatsächliche Endgewicht nach dem Kochen ein und FoodPlan berechnet die Nährwerte pro 100 g. Spätere Portionen reduzieren den Restbestand.</p><div><label for="batchRecipe">Rezept</label><select id="batchRecipe"></select></div><div class="grid" style="margin-top:10px"><div><label for="batchWeight">Fertiges Gesamtgewicht (g)</label><input id="batchWeight" type="number" min="1" placeholder="z. B. 1850"></div><div><label for="batchNote">Notiz (optional)</label><input id="batchNote" placeholder="z. B. Charge vom Sonntag"></div></div><div class="actions"><button class="primary" onclick="createBatch()">Gekochte Charge speichern</button></div><div id="batchPreview"></div></div><div class="card"><h3>Dein Kühlschrankbestand</h3><div id="batchList"></div></div></section>
 <section id="optimizer" class="panel"><div class="card"><h2>Mahlzeit automatisch berechnen</h2><p class="muted">Wähle Lebensmittel und Zielwerte. Die Berechnung verwendet nur Lebensmittel mit vollständig hinterlegten Nährwerten.</p><div class="grid"><div><label>Kalorien (kcal)</label><input id="optKcal" type="number" min="0" placeholder="650"></div><div><label>Protein (g)</label><input id="optProtein" type="number" min="0" placeholder="50"></div><div><label>Kohlenhydrate (g)</label><input id="optCarbs" type="number" min="0" placeholder="70"></div><div><label>Fett (g)</label><input id="optFat" type="number" min="0" placeholder="15"></div></div><div style="margin-top:12px"><label>Verfügbare Lebensmittel</label><div id="optFoodChecks"></div></div><div class="actions"><button class="primary" onclick="optimize()">Zusammenstellung berechnen</button></div></div><div id="optResult"></div></section>
-<section id="settings" class="panel"><div class="card"><h2>Deine Tagesziele</h2><div class="grid"><div><label>Kalorien (kcal)</label><input id="goalKcal" type="number" min="0"></div><div><label>Protein (g)</label><input id="goalProtein" type="number" min="0"></div><div><label>Kohlenhydrate (g)</label><input id="goalCarbs" type="number" min="0"></div><div><label>Fett (g)</label><input id="goalFat" type="number" min="0"></div></div><div class="actions"><button class="primary" onclick="saveGoals()">Ziele speichern</button></div></div><div class="card"><h3>Datensicherung</h3><p class="muted">Die Daten werden lokal in diesem Browser gespeichert. Exportiere regelmässig eine Sicherung.</p><div class="actions"><button class="secondary" onclick="exportData()">Daten exportieren</button><label class="secondary" style="display:inline-flex;align-items:center;cursor:pointer">Daten importieren<input type="file" accept="application/json" onchange="importData(event)" style="display:none"></label><button class="danger" onclick="resetAll()">Alle Daten löschen</button></div><p class="hint" id="storageStatus">Lokale Speicherung wird vorbereitet …</p></div><div class="card"><h3>Hinweis zur Genauigkeit</h3><p class="hint">Die Berechnung ist nur so genau wie die eingegebenen Nährwerte und Umrechnungen. Roh- und Kochgewichte werden nicht pauschal ineinander umgerechnet. Für Meal Prep werden die Nährwerte der Zutaten auf das tatsächlich gewogene Endgewicht verteilt.</p></div></section>
+<section id="settings" class="panel"><div class="card"><h2>Deine Tagesziele</h2><div class="grid"><div><label>Kalorien (kcal)</label><input id="goalKcal" type="number" min="0"></div><div><label>Protein (g)</label><input id="goalProtein" type="number" min="0"></div><div><label>Kohlenhydrate (g)</label><input id="goalCarbs" type="number" min="0"></div><div><label>Fett (g)</label><input id="goalFat" type="number" min="0"></div></div><div class="actions"><button class="primary" onclick="saveGoals()">Ziele speichern</button></div></div><div class="card"><h3>Datensicherung</h3><p class="muted">Die Daten werden lokal in diesem Browser gespeichert. Exportiere regelmässig eine Sicherung.</p><div class="actions"><button class="secondary" onclick="exportData()">Daten exportieren</button><label class="secondary" style="display:inline-flex;align-items:center;cursor:pointer">Daten importieren<input type="file" accept="application/json" onchange="importData(event)" style="display:none"></label><button class="danger" onclick="resetAll()">Alle Daten löschen</button></div><p class="hint" id="storageStatus">Lokale Speicherung wird vorbereitet …</p><div class="actions"><button class="secondary" onclick="requestPersistentStorage()">Dauerhaften Speicher schützen</button><button class="secondary" onclick="exportRecoveryBackup()">Notfallsicherung exportieren</button></div><p class="hint">FoodPlan legt zusätzlich eine lokale Wiederherstellungskopie an. Diese ersetzt keine regelmässige Datei-Sicherung.</p></div><div class="card"><h3>Hinweis zur Genauigkeit</h3><p class="hint">Die Berechnung ist nur so genau wie die eingegebenen Nährwerte und Umrechnungen. Roh- und Kochgewichte werden nicht pauschal ineinander umgerechnet. Für Meal Prep werden die Nährwerte der Zutaten auf das tatsächlich gewogene Endgewicht verteilt.</p></div></section>
 <footer>FoodPlan speichert deine Daten lokal auf diesem Gerät. Erstelle regelmässig eine Sicherung.</footer></main>
 <script>
 'use strict';
 const DB_NAME='FoodPlanDB',DB_VERSION=1,STORE='app';
-const FOODPLAN_BUILD='v12-2026-11-18';
+const FOODPLAN_BUILD='v13-2026-11-20';
 const seedFoods=[
 ['Pouletbrust','Fleisch & Fisch',120,23,0,2,'g','roh'],['Brokkoli','Gemüse',34,2.8,4,0.4,'g','roh'],['Kartoffeln, roh','Beilagen',77,2,17,0.1,'g','roh'],['Reis, gekocht','Beilagen',130,2.7,28,0.3,'g','gekocht'],['Magerquark','Milchprodukte',67,12,4,0.2,'g',''],['Haferflocken','Getreide',372,13.5,58.7,7,'g',''],['Ei, ganz','Sonstiges',143,13,0.7,9.5,'g',''],['Banane','Früchte',89,1.1,22.8,0.3,'g',''],['Olivenöl','Fette & Öle',884,0,0,100,'g',''],['Lindt Excellence 85%','Sonstiges',584,12,19,51,'g',''],
 ['Tomate','Gemüse',21,0.9,3.5,0.2,'g','roh'],['Süssmais, gekocht','Gemüse',96,3.4,20.5,1.5,'g','gekocht'],['Gurke','Gemüse',12,0.7,1.8,0.1,'g','roh'],['Aubergine','Gemüse',21,1.1,2.7,0.2,'g','roh'],['Blumenkohl','Gemüse',26,1.8,2.3,0.3,'g','roh'],['Butternuss-Kürbis','Gemüse',45,1,11.7,0.1,'g','roh'],['Rote Zwiebel','Gemüse',39,1.1,8.6,0.1,'g','roh'],['Knoblauch','Gemüse',149,6.4,33.1,0.5,'g','roh'],['Eisbergsalat','Gemüse',15,0.8,2.9,0.1,'g','roh'],['Rindshack, ca. 15% Fett','Fleisch & Fisch',215,18.5,0,15,'g','roh'],['Lachs Sockeye','Fleisch & Fisch',131,22.3,0,4.7,'g','roh'],['Lachsfilet mit Haut','Fleisch & Fisch',208,20.4,0,13.4,'g','roh'],['Lachsfilet ohne Haut','Fleisch & Fisch',208,20.4,0,13.4,'g','roh'],['Seelachsfilet','Fleisch & Fisch',75,17.2,0,0.8,'g','roh'],['Tiefkühlgemüse Asia Mix','Gemüse',45,2.5,6.5,0.7,'g','tiefgekühlt'],['Mandelmilch, ungesüsst','Milchprodukte',13,0.4,0.1,1.1,'ml',''],['Milch laktosefrei, 1.5% Fett','Milchprodukte',47,3.4,4.9,1.5,'ml',''],['Tasty Whey QLF, Vanille','Milchprodukte',378,77,4.2,5.9,'g','Pulver'],['Karotten','Gemüse',42,0.9,9.6,0.2,'g','roh'],['Kidneybohnen, Konserve, abgetropft','Beilagen',100,7.5,14,0.5,'g','abgetropft'],['Apfel','Früchte',52,0.3,13.8,0.2,'g','roh'],['Trauben','Früchte',69,0.7,18.1,0.2,'g','roh'],['Clementinen','Früchte',47,0.9,12,0.2,'g','roh'],['Mozzarella, Vollfett','Milchprodukte',250,18,2,19,'g',''],['Gemüsebouillon, zubereitet (Etikett)','Sonstiges',6,0.5,0.5,0.5,'ml','zubereitet'],['Thunfisch im Salzwasser, abgetropft','Fleisch & Fisch',116,26,0,1,'g','abgetropft'],['Zucchetti','Gemüse',17,1.2,3.1,0.3,'g','roh'],['Peperoni (rot)','Gemüse',31,1,6,0.3,'g','roh'],
@@ -36,10 +36,83 @@ let db={foods:[],meals:[],entries:[],goals:{kcal:2000,protein:150,carbs:200,fat:
 const $=id=>document.getElementById(id),num=v=>{if(v===null||v===undefined||v==='')return null;let x=Number(v);return Number.isFinite(x)?x:null},n=v=>num(v)||0,fmt=v=>Number(v||0).toLocaleString('de-CH',{maximumFractionDigits:1}),cap=s=>s[0].toUpperCase()+s.slice(1),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function openDB(){return new Promise((resolve,reject)=>{let req=indexedDB.open(DB_NAME,DB_VERSION);req.onupgradeneeded=()=>req.result.createObjectStore(STORE);req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)})}
 function idbGet(){return new Promise((resolve,reject)=>{let r=idb.transaction(STORE,'readonly').objectStore(STORE).get('state');r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)})}
-function idbSet(value){return new Promise((resolve,reject)=>{let tx=idb.transaction(STORE,'readwrite');tx.objectStore(STORE).put(value,'state');tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})}
-async function persist(){if(idb)await idbSet(db)}
+function idbSet(value){return new Promise((resolve,reject)=>{let tx=idb.transaction(STORE,'readwrite');tx.objectStore(STORE).put(value,'state');tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error||new Error('Speichern abgebrochen'))})}
+const RECOVERY_KEY='foodplan-recovery-v1', INIT_KEY='foodplan-initialized-v1';
+let recoveryBlocked=false, storagePersistent=false;
 function normalizeDB(d){d=d||{};return {foods:Array.isArray(d.foods)?d.foods.map(f=>({...f,baseUnit:f.baseUnit||'g',state:f.state||'',conversions:f.conversions||{}})):[],meals:Array.isArray(d.meals)?d.meals:[],entries:Array.isArray(d.entries)?d.entries:[],goals:d.goals||{kcal:2000,protein:150,carbs:200,fat:60},recipes:Array.isArray(d.recipes)?d.recipes:[],batches:Array.isArray(d.batches)?d.batches:[]}}
-async function init(){try{idb=await openDB();let stored=await idbGet();if(stored){db=normalizeDB(stored)}else{let legacy=null;try{legacy=JSON.parse(localStorage.getItem('foodplan-local-v1'))}catch(e){}db=normalizeDB(legacy||{foods:seedFoods,meals:[],entries:[],goals:{kcal:2000,protein:150,carbs:200,fat:60}});await persist();$('storageStatus').textContent=legacy?'Vorhandene Daten wurden in die neue lokale Datenbank übernommen.':'Lokale IndexedDB ist eingerichtet.'}const legacyCoffee=db.foods.find(f=>String(f.name||'').trim().toLocaleLowerCase('de')==='nescafé dolce gusto lungo espresso grande');if(legacyCoffee){legacyCoffee.name='Nescafé Dolce Gusto Lungo';legacyCoffee.category='Getränke';legacyCoffee.kcal=2;legacyCoffee.protein=0.1;legacyCoffee.carbs=0.1;legacyCoffee.fat=0.1;legacyCoffee.baseUnit='ml';legacyCoffee.state='zubereitet';legacyCoffee.conversions={portion:120}}const existing=new Set(db.foods.map(f=>String(f.name||'').trim().toLocaleLowerCase('de')));const additions=seedFoods.filter(f=>!existing.has(f.name.trim().toLocaleLowerCase('de')));if(additions.length)db.foods.push(...additions);let changed=additions.length>0||!!legacyCoffee;if(!db.foods.length){db.foods=[...seedFoods];changed=true}const whey=db.foods.find(f=>['tasty whey qlf, vanille*','tasty whey qlf, vanille'].includes(String(f.name||'').trim().toLowerCase()));if(whey){whey.name='Tasty Whey QLF, Vanille';whey.category='Milchprodukte';whey.kcal=378;whey.protein=77;whey.carbs=4.2;whey.fat=5.9;whey.baseUnit='g';whey.state='Pulver';changed=true}if(changed)await persist();document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>showTab(b.dataset.tab));$('dayDate').value=new Date().toLocaleDateString('en-CA');$('dayDate').addEventListener('change',renderToday);['kcal','protein','carbs','fat'].forEach(k=>$('goal'+cap(k)).value=db.goals[k]??'');renderAll();$('storageStatus').textContent='Aktiv: lokale IndexedDB. Keine Cloud-Synchronisierung.'}catch(e){$('storageStatus').textContent='IndexedDB ist nicht verfügbar. Bitte FoodPlan über einen aktuellen Browser öffnen.';console.error(e)}}
+function validBackup(d){return !!d&&Array.isArray(d.foods)&&Array.isArray(d.meals)&&Array.isArray(d.entries)&&!!d.goals}
+function recoverySnapshot(d){return JSON.stringify({savedAt:new Date().toISOString(),build:FOODPLAN_BUILD,data:d})}
+async function persist(){
+ if(recoveryBlocked)throw new Error('Speichern gesperrt: Bitte zuerst eine Sicherung importieren.');
+ if(!idb)throw new Error('Lokale Datenbank nicht verfügbar.');
+ await idbSet(db);
+ try{localStorage.setItem(RECOVERY_KEY,recoverySnapshot(db));localStorage.setItem(INIT_KEY,'1')}catch(e){console.warn('Lokale Wiederherstellungskopie konnte nicht aktualisiert werden.',e)}
+}
+async function init(){
+ try{
+  idb=await openDB();
+  let stored=await idbGet();
+  if(stored&&validBackup(stored)){
+   db=normalizeDB(stored);
+   try{localStorage.setItem(RECOVERY_KEY,recoverySnapshot(db));localStorage.setItem(INIT_KEY,'1')}catch(e){}
+  }else{
+   let initialized=false;try{initialized=localStorage.getItem(INIT_KEY)==='1'}catch(e){}
+   let recovery=null,legacy=null;
+   try{let raw=localStorage.getItem(RECOVERY_KEY);if(raw){let parsed=JSON.parse(raw);recovery=parsed.data||parsed}}catch(e){}
+   if(initialized){
+    if(validBackup(recovery)){
+     db=normalizeDB(recovery);await idbSet(db);
+     $('storageStatus').textContent='Wiederherstellung: Der letzte lokale Sicherungsstand wurde zurückgespielt. Bitte sofort eine Datei-Sicherung exportieren.';
+    }else{
+     db={foods:[],meals:[],entries:[],goals:{kcal:2000,protein:150,carbs:200,fat:60},recipes:[],batches:[]};
+     recoveryBlocked=true;
+     $('storageStatus').textContent='WARNUNG: Die bisherige Datenbank wurde nicht gefunden. Es wurde absichtlich keine leere Datenbank gespeichert. Bitte eine vorhandene FoodPlan-Sicherung importieren.';
+    }
+   }else{
+    try{legacy=JSON.parse(localStorage.getItem('foodplan-local-v1'))}catch(e){}
+    db=normalizeDB(legacy||{foods:seedFoods,meals:[],entries:[],goals:{kcal:2000,protein:150,carbs:200,fat:60}});
+    await idbSet(db);
+    try{localStorage.setItem(RECOVERY_KEY,recoverySnapshot(db));localStorage.setItem(INIT_KEY,'1')}catch(e){}
+    $('storageStatus').textContent=legacy?'Vorhandene Daten wurden in die lokale Datenbank übernommen.':'Lokale IndexedDB wurde neu eingerichtet.';
+   }
+  }
+  const legacyCoffee=db.foods.find(f=>String(f.name||'').trim().toLocaleLowerCase('de')==='nescafé dolce gusto lungo espresso grande');
+  if(legacyCoffee){legacyCoffee.name='Nescafé Dolce Gusto Lungo';legacyCoffee.category='Getränke';legacyCoffee.kcal=2;legacyCoffee.protein=0.1;legacyCoffee.carbs=0.1;legacyCoffee.fat=0.1;legacyCoffee.baseUnit='ml';legacyCoffee.state='zubereitet';legacyCoffee.conversions={portion:120}}
+  const existing=new Set(db.foods.map(f=>String(f.name||'').trim().toLocaleLowerCase('de')));
+  const additions=seedFoods.filter(f=>!existing.has(f.name.trim().toLocaleLowerCase('de')));
+  if(additions.length)db.foods.push(...additions);
+  let changed=additions.length>0||!!legacyCoffee;
+  const whey=db.foods.find(f=>['tasty whey qlf, vanille*','tasty whey qlf, vanille'].includes(String(f.name||'').trim().toLowerCase()));
+  if(whey){whey.name='Tasty Whey QLF, Vanille';whey.category='Milchprodukte';whey.kcal=378;whey.protein=77;whey.carbs=4.2;whey.fat=5.9;whey.baseUnit='g';whey.state='Pulver';changed=true}
+  if(changed&&!recoveryBlocked)await persist();
+  document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
+  $('dayDate').value=new Date().toLocaleDateString('en-CA');
+  $('dayDate').addEventListener('change',renderToday);
+  ['kcal','protein','carbs','fat'].forEach(k=>$('goal'+cap(k)).value=db.goals[k]??'');
+  renderAll();
+  if(!recoveryBlocked){
+   let persisted=false;
+   try{persisted=await navigator.storage?.persisted?.()||false}catch(e){}
+   storagePersistent=persisted;
+   $('storageStatus').textContent='Aktiv: lokale IndexedDB. '+(persisted?'Dauerhafter Gerätespeicher ist aktiviert.':'Dauerhafter Gerätespeicher noch nicht bestätigt.')+' Keine Cloud-Synchronisierung.';
+  }
+ }catch(e){$('storageStatus').textContent='Fehler beim Zugriff auf die lokale Datenbank. Bitte nichts löschen und eine Sicherung bereithalten.';console.error(e)}
+}
+async function requestPersistentStorage(){
+ try{
+  if(!navigator.storage?.persist){alert('Dein Browser bietet diese Speicher-Schutzfunktion hier nicht an.');return}
+  storagePersistent=await navigator.storage.persist();
+  $('storageStatus').textContent=storagePersistent?'Dauerhafter Gerätespeicher ist aktiviert. Deine Daten bleiben lokal.':'Der Browser hat dauerhaften Speicher nicht bestätigt. Bitte regelmässig exportieren.';
+  alert(storagePersistent?'Dauerhafter Speicher wurde aktiviert.':'Der Browser hat die Anfrage nicht bestätigt. Regelmässige Sicherungen bleiben wichtig.');
+ }catch(e){alert('Speicherschutz konnte nicht abgefragt werden. Bitte regelmässig exportieren.')}
+}
+function exportRecoveryBackup(){
+ if(recoveryBlocked){alert('Es gibt keinen verlässlichen aktuellen Datenbestand zum Exportieren. Bitte zuerst eine gültige Sicherung importieren.');return}
+ let data={...db};downloadBackup(data,'foodplan-notfallsicherung-');
+}
+function downloadBackup(data,prefix='foodplan-sicherung-'){
+ let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=prefix+new Date().toISOString().slice(0,10)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1500)
+}
 function showTab(id){document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===id));if(id==='builder'){renderBuilder();renderSavedMeals();renderRecipeFromMealSelect();}if(id==='today')renderToday();if(id==='foods')renderFoods();if(id==='recipes'){renderRecipes();renderRecipeFromMealSelect();}if(id==='prep')renderBatches();if(id==='optimizer')renderOptChecks()}
 function renderAll(){renderFoodSelect();renderFoods();renderBuilder();renderSavedMeals();renderToday();renderSavedMealSelect();renderRecipes();renderBatches();renderOptChecks();renderRecipeSelect();renderRecipeFromMealSelect()}
 function alpha(items,key){return [...items].sort((a,b)=>String(key(a)||'').localeCompare(String(key(b)||''),'de',{sensitivity:'base'}))}
@@ -94,9 +167,26 @@ function renderOptChecks(){$('optFoodChecks').innerHTML=db.foods.filter(foodComp
 function optimize(){let ids=[...document.querySelectorAll('#optFoodChecks input:checked')].map(x=>x.value),foods=ids.map(foodById).filter(Boolean);if(!foods.length)return alert('Bitte mindestens ein Lebensmittel auswählen.');let target={kcal:n($('optKcal').value),protein:n($('optProtein').value),carbs:n($('optCarbs').value),fat:n($('optFat').value)};if(!Object.values(target).some(x=>x>0))return alert('Bitte mindestens ein Nährwertziel eingeben.');if(foods.some(f=>f.baseUnit!=='g'))return alert('Der Planer unterstützt aktuell nur Lebensmittel mit Bezugsmenge pro 100 g.');let grams=foods.map(()=>100),keys=Object.keys(target).filter(k=>target[k]>0);function score(gs){let t=totals(foods.map((f,i)=>({foodId:f.id,baseAmount:gs[i]}))),err=0;for(let k of keys)err+=(k==='kcal'?1:1.15)*Math.pow((t[k]-target[k])/Math.max(target[k],10),2);return err+.0000008*gs.reduce((a,b)=>a+b,0)**2}for(let step of [25,5,1]){let changed=true,passes=0;while(changed&&passes++<12){changed=false;for(let i=0;i<foods.length;i++){let best=grams[i],bestScore=score(grams);for(let g=0;g<=600;g+=step){let test=[...grams];test[i]=g;let s=score(test);if(s<bestScore){bestScore=s;best=g}}if(best!==grams[i]){grams[i]=best;changed=true}}}}let lines=foods.map((f,i)=>({foodId:f.id,amount:grams[i],unit:'g',baseAmount:grams[i]})).filter(l=>l.amount>0),t=totals(lines);optResultData={lines};$('optResult').innerHTML=`<div class="card"><h2>Dein Vorschlag</h2>${lines.map(l=>`<div class="foodline"><div class="grow">${esc(foodById(l.foodId).name)}</div><b>${fmt(l.amount)} g</b></div>`).join('')}${macroHTML(t)}<div class="actions"><button class="primary" onclick="useOptResult()">Als Mahlzeit übernehmen</button></div></div>`}
 function useOptResult(){if(!optResultData)return;draft=optResultData.lines.map(x=>({...x}));$('mealName').value='Optimierte Mahlzeit';showTab('builder')}
 function saveGoals(){db.goals={kcal:n($('goalKcal').value),protein:n($('goalProtein').value),carbs:n($('goalCarbs').value),fat:n($('goalFat').value)};persist().then(()=>{renderToday();alert('Tagesziele gespeichert.')})}
-function exportData(){let blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='foodplan-sicherung-'+new Date().toISOString().slice(0,10)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
-function importData(e){let file=e.target.files?.[0];if(!file)return;let r=new FileReader();r.onload=async()=>{try{let d=JSON.parse(r.result);if(!Array.isArray(d.foods)||!Array.isArray(d.meals)||!Array.isArray(d.entries)||!d.goals)throw Error();db=normalizeDB(d);await persist();renderAll();alert('Daten erfolgreich importiert.')}catch(err){alert('Datei konnte nicht gelesen werden. Bitte eine FoodPlan-Sicherung wählen.')}};r.readAsText(file);e.target.value=''}
-async function resetAll(){if(!confirm('Wirklich alle Lebensmittel, Mahlzeiten, Rezepte und Tagesdaten löschen?'))return;db={foods:seedFoods,meals:[],entries:[],goals:{kcal:2000,protein:150,carbs:200,fat:60},recipes:[],batches:[]};await persist();renderAll()}
+function exportData(){if(recoveryBlocked){alert('Bitte zuerst eine gültige Sicherung importieren.');return}downloadBackup(db)}
+function importData(e){
+ let file=e.target.files?.[0];if(!file)return;
+ let r=new FileReader();
+ r.onload=async()=>{
+  try{
+   let d=JSON.parse(r.result);if(!validBackup(d))throw Error('Ungültige FoodPlan-Sicherung');
+   if(!recoveryBlocked){
+    try{localStorage.setItem('foodplan-preimport-backup-v1',recoverySnapshot(db))}catch(err){}
+    if(!confirm('Diese Sicherung ersetzt den aktuell gespeicherten Datenbestand. Der bisherige Stand wird vorher lokal als Notfallkopie abgelegt. Fortfahren?')){e.target.value='';return}
+   }
+   db=normalizeDB(d);recoveryBlocked=false;await persist();renderAll();
+   $('storageStatus').textContent='Daten erfolgreich importiert. Eine lokale Wiederherstellungskopie wurde aktualisiert.';
+   alert('Daten erfolgreich importiert. Bitte anschliessend eine neue Datei-Sicherung exportieren.');
+  }catch(err){alert('Datei konnte nicht gelesen werden. Bitte eine gültige FoodPlan-Sicherung wählen.')}
+  e.target.value='';
+ };
+ r.readAsText(file);
+}
+async function resetAll(){if(recoveryBlocked)return alert('Zur Sicherheit gesperrt: Bitte zuerst eine gültige Sicherung importieren.');if(!confirm('Wirklich alle Lebensmittel, Mahlzeiten, Rezepte und Tagesdaten löschen?'))return;db={foods:seedFoods,meals:[],entries:[],goals:{kcal:2000,protein:150,carbs:200,fat:60},recipes:[],batches:[]};await persist();renderAll()}
 function voiceAddFood(){let SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return alert('Dein Browser unterstützt die Spracheingabe hier leider nicht. Du kannst die Lebensmittel weiterhin über die Liste auswählen.');let rec=new SR();rec.lang='de-DE';rec.interimResults=false;rec.maxAlternatives=3;rec.onresult=e=>{let spoken=e.results[0][0].transcript.toLowerCase().trim(),matches=db.foods.filter(f=>f.name.toLowerCase()===spoken||f.name.toLowerCase().includes(spoken)||spoken.includes(f.name.toLowerCase()));if(matches.length===1){$('builderFood').value=matches[0].id;updateUnitOptions();alert('Erkannt: '+matches[0].name+'. Bitte Menge und Einheit ergänzen.')}else if(matches.length>1){let chosen=prompt('Mehrere Treffer gefunden:\n'+matches.map((f,i)=>`${i+1}. ${f.name}`).join('\n')+'\nNummer eingeben:');let f=matches[Number(chosen)-1];if(f){$('builderFood').value=f.id;updateUnitOptions()}}else alert('Kein passendes Lebensmittel für „'+spoken+'“ gefunden. Bitte Namen prüfen oder tippen.')};rec.onerror=()=>alert('Spracheingabe nicht verfügbar. Bitte versuche es erneut oder tippe den Namen.');rec.start()}
 if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
 init();
